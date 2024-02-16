@@ -34,11 +34,11 @@ const CourseInput = (props) => {
             <Button
               title="add Course"
               onPress={buttonEnterHander}
-              color={'#5e0acc'}
+              color="#f31282"
             />
           </View>
           <View style={styles.button}>
-            <Button title="Cancel" onPress={buttonCancel} color={'#5e0acc'} />
+            <Button title="Cancel" onPress={buttonCancel} color="#b180f0" />
           </View>
         </View>
       </View>
@@ -61,13 +61,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   inputText: {
-    width: '100%',
-    height: 40,
-    lineHeight: 40,
     borderWidth: 1,
-    borderColor: '#ccc',
-    paddingHorizontal: 10,
-    color: '#fff',
+    borderColor: '#e4d0ff',
+    backgroundColor: '#e4d0ff',
+    color: '#120438',
+    borderRadius: 6,
+    width: '100%',
+    padding: 16,
   },
   btnGroup: {
     marginTop: 20,

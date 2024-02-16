@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native'
 import CourseInput from './components/CourseInput'
 import CourseList from './components/CourseList'
+import { StatusBar } from 'expo-status-bar'
 export default function App() {
   const [courseList, setCourseList] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
@@ -31,25 +32,29 @@ export default function App() {
     })
   }
   return (
-    <View style={styles.container}>
-      <Button
-        color={'#5e0acc'}
-        title="add goal course"
-        onPress={showModalOpen}
-      />
-      <CourseInput
-        onConfirm={onConfirmHandler}
-        modalVisible={modalVisible}
-        buttonCancelHander={showModalHidden}
-      />
-      <CourseList datas={courseList} onDelete={onDeleteHandler} />
-    </View>
+    <>
+      <StatusBar style="light" />
+      <View style={styles.container}>
+        <Button
+          color={'#5e0acc'}
+          title="add goal course"
+          onPress={showModalOpen}
+        />
+        <CourseInput
+          onConfirm={onConfirmHandler}
+          modalVisible={modalVisible}
+          buttonCancelHander={showModalHidden}
+        />
+        <CourseList datas={courseList} onDelete={onDeleteHandler} />
+      </View>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 50,
-    backgroundColor: '#fff',
+    flex: 1,
+    paddingTop: 50,
+    paddingHorizontal: 16,
   },
 })

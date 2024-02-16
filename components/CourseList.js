@@ -37,13 +37,13 @@ const styles = StyleSheet.create({
     borderTopColor: '#ccc',
   },
   ListItem: {
-    marginVertical: 10,
+    margin: 8,
+    borderRadius: 6,
     backgroundColor: '#5e0acc',
-    borderRadius: 10,
   },
   ListItemText: {
-    color: '#fff',
-    padding: 10,
+    color: 'white',
+    padding: 8,
   },
 })
 export default CourseList
