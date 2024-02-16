@@ -1,43 +1,49 @@
 import React from 'react'
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from 'react-native'
+import { View, FlatList, StyleSheet, Text, Pressable } from 'react-native'
 
 const ListItem = ({ title, id, onDelete }) => {
   return (
-    <TouchableOpacity activeOpacity={0.8} onPress={() => onDelete(id)}>
-      <View style={styles.listContainer}>
-        <Text>{title}</Text>
-      </View>
-    </TouchableOpacity>
+    <View style={styles.ListItem}>
+      <Pressable
+        onPress={() => onDelete(id)}
+        android_ripple={{ color: '#dddddd' }}
+      >
+        <Text style={styles.ListItemText}>{title}</Text>
+      </Pressable>
+    </View>
   )
 }
 const CourseList = (props) => {
   return (
-    <FlatList
-      data={props.datas}
-      renderItem={(renderItem) => (
-        <ListItem
-          title={renderItem.item.value}
-          id={renderItem.item.id}
-          onDelete={props.onDelete}
-        />
-      )}
-      keyExtractor={(item) => item.id}
-    ></FlatList>
+    <View style={styles.container}>
+      <FlatList
+        data={props.datas}
+        renderItem={(renderItem) => (
+          <ListItem
+            title={renderItem.item.value}
+            id={renderItem.item.id}
+            onDelete={props.onDelete}
+          />
+        )}
+        keyExtractor={(item) => item.id}
+      ></FlatList>
+    </View>
   )
 }
 const styles = StyleSheet.create({
-  listContainer: {
-    padding: 10,
-    backgroundColor: '#ccc',
+  container: {
+    marginTop: 30,
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+  },
+  ListItem: {
     marginVertical: 10,
-    borderWidth: 1,
-    borderColor: '#000',
+    backgroundColor: '#5e0acc',
+    borderRadius: 10,
+  },
+  ListItemText: {
+    color: '#fff',
+    padding: 10,
   },
 })
 export default CourseList

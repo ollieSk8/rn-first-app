@@ -4,6 +4,15 @@ import CourseInput from './components/CourseInput'
 import CourseList from './components/CourseList'
 export default function App() {
   const [courseList, setCourseList] = useState([])
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const showModalOpen = () => {
+    setModalVisible(true)
+  }
+
+  const showModalHidden = () => {
+    setModalVisible(false)
+  }
   const onConfirmHandler = (goalCourse) => {
     setCourseList((list) => {
       return [
@@ -14,6 +23,7 @@ export default function App() {
         },
       ]
     })
+    showModalHidden()
   }
   const onDeleteHandler = (id) => {
     setCourseList((list) => {
@@ -22,7 +32,16 @@ export default function App() {
   }
   return (
     <View style={styles.container}>
-      <CourseInput onConfirm={onConfirmHandler} />
+      <Button
+        color={'#5e0acc'}
+        title="add goal course"
+        onPress={showModalOpen}
+      />
+      <CourseInput
+        onConfirm={onConfirmHandler}
+        modalVisible={modalVisible}
+        buttonCancelHander={showModalHidden}
+      />
       <CourseList datas={courseList} onDelete={onDeleteHandler} />
     </View>
   )

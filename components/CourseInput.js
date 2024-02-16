@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Button, TextInput, StyleSheet } from 'react-native'
+import { View, Button, TextInput, StyleSheet, Modal } from 'react-native'
 const CourseInput = (props) => {
   const [goalCourse, setGoalCourse] = useState('')
   const goalCourseChange = (text) => {
@@ -12,27 +12,55 @@ const CourseInput = (props) => {
     }
     setGoalCourse('')
   }
+  const buttonCancel = () => {
+    props.buttonCancelHander()
+    setGoalCourse('')
+  }
   return (
-    <>
+    <Modal visible={props.modalVisible} animationType="fade">
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.inputText}
           placeholder="enter a course here"
           value={goalCourse}
-          onChangeText={(text) => goalCourseChange(text)}
+          onChangeText={goalCourseChange}
         />
-        <Button title="add Course" onPress={buttonEnterHander} />
+        <View style={styles.btnGroup}>
+          <View style={styles.button}>
+            <Button
+              title="add Course"
+              onPress={buttonEnterHander}
+              color={'#5e0acc'}
+            />
+          </View>
+          <View style={styles.button}>
+            <Button title="Cancel" onPress={buttonCancel} color={'#5e0acc'} />
+          </View>
+        </View>
       </View>
-    </>
+    </Modal>
   )
 }
 const styles = StyleSheet.create({
   inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    padding: 16,
   },
   inputText: {
-    width: '80%',
+    height: 40,
+    lineHeight: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    paddingHorizontal: 10,
+  },
+  btnGroup: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  button: {
+    width: 130,
+    marginHorizontal: 8,
   },
 })
 export default CourseInput
