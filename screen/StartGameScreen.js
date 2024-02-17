@@ -1,6 +1,34 @@
-import { View, Text, StyleSheet, TextInput } from 'react-native'
+import { useState } from 'react'
+import { View, Text, StyleSheet, TextInput, Alert } from 'react-native'
 import PrimaryButton from '../components/PrimaryButton'
 function StartGameScreen() {
+  const [enterNumber, setEnterNumber] = useState('')
+  //bind inputText
+  const onChangeNumber = (text) => {
+    setEnterNumber(text)
+  }
+  //reset number
+  const resetNumberHandler = () => {
+    setEnterNumber('')
+  }
+  //confirm number
+  const confirmNumberHandler = () => {
+    const InputNumber = parseInt(enterNumber)
+    if (isNaN(InputNumber) || InputNumber <= 0 || InputNumber > 99) {
+      Alert.alert(
+        'Invalid Number',
+        'The Number has to be Number between 1 and 99',
+        [
+          {
+            text: 'Okay',
+            style: 'destructive',
+            onPress: resetNumberHandler,
+          },
+        ],
+      )
+    }
+    console.log('Valid Number')
+  }
   return (
     <>
       <View style={styles.inputContainer}>
@@ -10,13 +38,17 @@ function StartGameScreen() {
           keyboardType="number-pad"
           autoCapitalize="none"
           autoCorrect={false}
+          value={enterNumber}
+          onChangeText={onChangeNumber}
         ></TextInput>
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonContainer}>
-            <PrimaryButton>Reset</PrimaryButton>
+            <PrimaryButton onPress={resetNumberHandler}>Reset</PrimaryButton>
           </View>
           <View style={styles.buttonContainer}>
-            <PrimaryButton>Reset</PrimaryButton>
+            <PrimaryButton onPress={confirmNumberHandler}>
+              Confirm
+            </PrimaryButton>
           </View>
         </View>
       </View>
@@ -26,7 +58,7 @@ function StartGameScreen() {
 const styles = StyleSheet.create({
   inputContainer: {
     justifyContent: 'center',
-    alignContent: 'center',
+    alignItems: 'center',
     marginTop: 100,
     marginHorizontal: 24,
     padding: 16,
