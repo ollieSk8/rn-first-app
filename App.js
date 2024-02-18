@@ -11,13 +11,20 @@ export default function App() {
   const [numberPicked, setNumberPicked] = useState()
   const [isGameOver, setIsGameOver] = useState(true)
   const [appIsReady, setAppIsReady] = useState(false)
+  const [roundsNumber, setRoundsNumber] = useState(0)
 
   const toJumpPage = (number) => {
     setNumberPicked(number)
     setIsGameOver(false)
   }
-  const onGameOverHandler = () => {
+  const onGameOverHandler = (count) => {
     setIsGameOver(true)
+    setRoundsNumber(count)
+  }
+
+  const restartHandler = () => {
+    setNumberPicked(null)
+    setRoundsNumber(0)
   }
   let screen = <StartGameScreen onConfirm={toJumpPage} />
   if (numberPicked) {
@@ -26,7 +33,13 @@ export default function App() {
     )
   }
   if (isGameOver && numberPicked) {
-    screen = <GameOverScreen></GameOverScreen>
+    screen = (
+      <GameOverScreen
+        roundsNumber={roundsNumber}
+        guessNumber={numberPicked}
+        restartHandler={restartHandler}
+      ></GameOverScreen>
+    )
   }
 
   useEffect(() => {
