@@ -3,6 +3,9 @@ import { View, Text, StyleSheet, Alert } from 'react-native'
 import Title from '../components/ui/Title'
 import NumberContainer from '../components/game/NumberContainer'
 import PrimaryButton from '../components/ui/PrimaryButton'
+import Card from '../components/ui/Card'
+import InstructionText from '../components/ui/InstructionText'
+import { Ionicons } from '@expo/vector-icons'
 function generateRandomBetween(min, max, exclude) {
   const rndNum = Math.floor(Math.random() * (max - min)) + min
 
@@ -56,17 +59,23 @@ function GameScreen({ userNumber, onGameOver }) {
     <View style={styles.rootScreen}>
       <Title>Opponent's Guess</Title>
       <NumberContainer>{guessNumber}</NumberContainer>
-      <View>
-        <Text>Higher or lower?</Text>
-        <View>
-          <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
-            -
-          </PrimaryButton>
-          <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
-            +
-          </PrimaryButton>
+      <Card>
+        <InstructionText style={styles.InstructionText}>
+          Higher or lower?
+        </InstructionText>
+        <View style={styles.btnGroup}>
+          <View style={styles.btn}>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
+              <Ionicons name="remove" size={24} />
+            </PrimaryButton>
+          </View>
+          <View style={styles.btn}>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
+              <Ionicons name="add" size={24} />
+            </PrimaryButton>
+          </View>
         </View>
-      </View>
+      </Card>
       {/* <View>LOG ROUNDS</View> */}
     </View>
   )
@@ -76,6 +85,16 @@ const styles = StyleSheet.create({
   rootScreen: {
     flex: 1,
     padding: 24,
+  },
+  btnGroup: {
+    flexDirection: 'row',
+  },
+  InstructionText: {
+    marginBottom: 24,
+  },
+  btn: {
+    flex: 1,
+    marginVertical: 8,
   },
 })
 export default GameScreen
